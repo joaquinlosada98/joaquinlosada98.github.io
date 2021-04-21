@@ -4,9 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="theme-color" content="#4285f4">
+    <link rel="apple-touch-icon" href="./img/pwa.png">
+    <link rel="manifest" href="manifest-examp.json">
+
+    <title>Prueba clase 4</title>
+    <script>
+        if(navigator.serviceWorker){
+            navigator.serviceWorker.register("sw.js").then((evt) => {
+                console.log("PAGE", "service worker registrado", evt)
+            })
+            .catch( err => {
+                console.log(err)
+            })
+        }
+    </script>
 </head>
 <body>
-    <h1>Hola mundooooo!</h1>
+    <h1>Demo Service Worker</h1>
+    <button id="btn">Hacer peticion fetch</button>
+    <div id="respuesta"></div>
+    <script>
+        document.getElementById("btn").addEventListener("click", () => {
+            fetch("/api/prueba").then(res => res.json())
+            .then(data => {
+                document.getElementById("respuesta").innerHTML = `hola mi nombre es ${data.nombre}`
+            });
+        })
+    </script>
 </body>
 </html>
